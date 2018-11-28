@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux'
 
-import rootReducer from './rootReducer'
-import simpleReducer from './simpleReducer'
+import stream from './stream'
 
 export default combineReducers({
-	rootReducer,
-	simpleReducer,
+	stream,
 })

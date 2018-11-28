@@ -30,3 +30,9 @@
     transform: rotate(360deg);
   }
 }
+
+.profil-pic {
+	width: 18rem;
+	height: auto;
+	color: black;
+}
