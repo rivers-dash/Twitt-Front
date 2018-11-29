@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
 }
 
 .App-logo {
@@ -31,8 +30,14 @@
   }
 }
 
-.profil-pic {
-	width: 18rem;
+.tweet-container{
+		width: 100%;
+}
+
+.tweets-container {
+	width: 60%;
 	height: auto;
-	color: black;
+	background-color: #1e1e3d;
+	border-radius: 15px;
+	box-shadow: 0 5px 5px rgba(0, 0, 0, .5);
 }

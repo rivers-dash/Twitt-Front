@@ -1,0 +1,38 @@
+.container {
+	color: black;
+	background-color: white;
+	border-radius: 20px;
+}
+
+.profile-picture {
+	border-radius: 25px;
+	border-color: rgba(#ffffff, 0);
+	box-shadow: 0 5px 5px rgba(0, 0, 0, .5);
+	width: auto;
+}
+
+.name {
+	text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+}
+
+.description {
+	font-size: 10px;
+}
+
+.main {
+	color: #404040;
+}
+
+.text {
+	font-size: 16px;
+}
+
+.media {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.count {
+	font-size: 12px;
+}
