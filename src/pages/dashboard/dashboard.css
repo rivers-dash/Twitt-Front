@@ -1,0 +1,25 @@
+.dashboard {
+	width: 100%;
+}
+
+button {
+	cursor: 'pointer';
+}
+
+.tweets-container {
+	display: table;
+  margin: auto;
+	width: 100%;
+	max-width: 650px;
+	height: auto;
+	background-color: #282c34;
+	border-radius: 15px;
+	padding: 0;
+  list-style-type: none;
+}
+
+@media only screen and (max-width: 580px) {
+  .tweets-container {
+    width: 100%;
+  }
+}

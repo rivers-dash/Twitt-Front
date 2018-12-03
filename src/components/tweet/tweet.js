@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
-import { Player } from 'video-react'
+import ReactPlayer from 'react-player'
 
 import { filterStream } from '../../actions/stream'
 
@@ -19,86 +19,133 @@ class Tweet extends Component {
 		console.log(data)
 		return (
 			data.media.map((item, index) => {
-				console.log(item)
 				if (item.type === 'video') {
-					return <video key={index} controls><source src={item.video_info.variants[0].url}/></video>
+					return (
+						<div className="" key={index}>
+							<ReactPlayer className="video d-flex justify-content-center py-2 px-3" key={index} url={item.video_info.variants[0].url} playing />
+						</div>
+					)
 				} else if (item.type === 'photo') {
 					console.log(item.media_url_https)
 					return (
-					 	<img key={index} className="media d-flex justify-content-center py-2 px-3" src={item.media_url_https} alt=""/>
+						<div className="image justify-content-center" key={index}>
+					 		<img key={index} className="media justify-content-center py-2 px-3 media" src={item.media_url_https} alt=""/>
+						</div>
 					)
 				}
 			})
 		)
 	}
 
-	displayMain() {
+	displayRetweet() {
 		const { tweet } = this.props
-		if (tweet.retweeted_status) {
-			return (
-				<div>
-					<div className="header d-flex p-1">
-						<img className="profile-picture d-flex row align-self-center m-1" src={tweet.retweeted_status.user.profile_image_url_https} alt=""/>
-						<div className="name d-flex mx-2">
-							{tweet.retweeted_status.user.name}
-						</div>
-					</div>
-					<div className="main flex-column p-1">
-						<div className="text d-flex justify-content-left py-1 px-3">
-							{tweet.retweeted_status.extended_tweet ? tweet.retweeted_status.extended_tweet.full_text : tweet.retweeted_status.text}
-						</div>
-						<div className="media">
-							{ tweet.retweeted_status.extended_entities ? this.displayMedia(tweet.retweeted_status.extended_entities) : (tweet.retweeted_status.extended_tweet ? (tweet.retweeted_status.extended_tweet.extended_entities ? this.displayMedia(tweet.retweeted_status.extended_tweet.extended_entities) : <div className="no-media"></div>) : <div className="no-media"></div>) }
+		return (
+			<div>
+				<div className="header d-flex px-1">
+					<div className="user flex-column">
+						<div className="retweet-tag d-flex text-muted mx-2">
+							<b>{tweet.user.name}</b> <span className="ml-1">a retweeté</span>
 						</div>
 					</div>
 				</div>
-			)
-		} else {
-			return (
-				<div className="main flex-column p-1">
-					<div className="text d-flex justify-content-left py-1 px-3">
-						{tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text}
+
+				<div className="main d-flex p-1">
+					<div className="d-flex align-items-start">
+						<img className="profile-picture d-flex justify-content-center m-2" src={tweet.retweeted_status.user.profile_image_url_https} alt=""/>
 					</div>
-					<div className="media">
-						{ tweet.extended_entities ? this.displayMedia(tweet.extended_entities) : (tweet.extended_tweet ? (tweet.extended_tweet.extended_entities ? this.displayMedia(tweet.extended_tweet.extended_entities) : <div className="no-media"></div>) : <div className="no-media"></div>) }
+					<div className="container">
+						<div className="header d-flex">
+							<div className="name d-flex">
+								{tweet.retweeted_status.user.name}
+							</div>
+						</div>
+						<div className="main d-flex flex-column">
+							<div className="text d-flex justify-content-left py-1">
+								{tweet.retweeted_status.extended_tweet ? tweet.retweeted_status.extended_tweet.full_text : tweet.retweeted_status.text}
+							</div>
+							<div className="">
+								{tweet.retweeted_status.extended_entities ? this.displayMedia(tweet.retweeted_status.extended_entities) : (tweet.retweeted_status.extended_tweet ? (tweet.retweeted_status.extended_tweet.extended_entities ? this.displayMedia(tweet.retweeted_status.extended_tweet.extended_entities) : <div className="no-media"></div>) : <div className="no-media"></div>)}
+							</div>
+						</div>
 					</div>
 				</div>
-			)
-		}
+
+				<div className="footer d-flex mx-2 my-1">
+					<div className="comment d-flex justify-content-center mx-2">
+						<div className="count d-flex align-self-center text-muted mx-2">{tweet.retweeted_status.reply_count}</div>
+						<span className="d-flex" role="img" aria-label="emoji">💬</span>
+					</div>
+
+					<div className="retweet d-flex justify-content-center mx-2">
+						<div className="count d-flex align-self-center text-muted mx-2">{tweet.retweeted_status.retweet_count}</div>
+						<span className="d-flex" role="img" aria-label="emoji">🔁</span>
+					</div>
+
+					<div className="like d-flex justify-content-center mx-2">
+						<div className="count d-flex align-self-center text-muted mx-2">{tweet.retweeted_status.favorite_count}</div>
+						<span className="d-flex" role="img" aria-label="emoji">❤️</span>
+					</div>
+				</div>
+
+			</div>
+		)
 	}
 
-  render() {
+	displayTweet() {
 		const { tweet } = this.props
-		return(
-			<div className="container flex-column align-self-center p-1 m-2">
-				<div className="header d-flex p-1">
-					<img className="profile-picture d-flex row align-self-center m-1" src={tweet.user.profile_image_url_https} alt=""/>
-					<div className="user flex-column">
-					<div className="name d-flex mx-2">
-						{tweet.user.name}
-					</div>
-					<div className="description text-muted d-flex justify-content-left mx-2">
-						{tweet.user.description}
-					</div>
-				</div>
-				</div>
+		return (
+			<div>
+
 				<div className="main d-flex p-1">
-						{this.displayMain()}
+					<div className="d-flex align-items-start">
+						<img className="profile-picture d-flex justify-content-center m-2" src={tweet.user.profile_image_url_https} alt=""/>
+					</div>
+
+					<div className="header d-flex p-1">
+						<div className="user flex-column">
+							<div className="name d-flex">
+								{tweet.user.name}
+							</div>
+							<div className="text-muted justify-content-left description">
+								{tweet.user.description}
+							</div>
+
+							<div className="text d-flex justify-content-left py-1">
+								{tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.text}
+							</div>
+							<div className="">
+								{tweet.extended_entities ? this.displayMedia(tweet.extended_entities) : (tweet.extended_tweet ? (tweet.extended_tweet.extended_entities ? this.displayMedia(tweet.extended_tweet.extended_entities) : <div className="no-media"></div>) : <div className="no-media"></div>)}
+							</div>
+						</div>
+					</div>
 				</div>
+
 				<div className="footer d-flex mx-2 my-1">
 					<div className="comment d-flex justify-content-center mx-2">
 						<div className="count d-flex align-self-center text-muted mx-2">{tweet.reply_count}</div>
 						<span className="d-flex" role="img" aria-label="emoji">💬</span>
 					</div>
+
 					<div className="retweet d-flex justify-content-center mx-2">
 						<div className="count d-flex align-self-center text-muted mx-2">{tweet.retweet_count}</div>
 						<span className="d-flex" role="img" aria-label="emoji">🔁</span>
 					</div>
+
 					<div className="like d-flex justify-content-center mx-2">
 						<div className="count d-flex align-self-center text-muted mx-2">{tweet.favorite_count}</div>
 						<span className="d-flex" role="img" aria-label="emoji">❤️</span>
 					</div>
 				</div>
+
+			</div>
+		)
+	}
+
+  render() {
+		const { tweet } = this.props
+		return(
+			<div className="tweet-box flex-column align-self-center py-2 m-1">
+				{ tweet.retweeted_status ? this.displayRetweet() : this.displayTweet() }
 			</div>
 		)
 	}

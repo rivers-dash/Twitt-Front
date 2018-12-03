@@ -4,7 +4,7 @@ export function sampleStream() {
 	return function action(dispatch) {
     dispatch({ type: 'SAMPLE_STREAM' })
 
-		axios.get('http://localhost:8080/api/stream/sample/5', {withCredentials: true})
+		axios.get('http://macbook-air-de-smail.local:8080/api/stream/sample/5', {withCredentials: true})
 		.then((response) => {
 			dispatch(sampleStreamSuccess(response.data))
 		})
@@ -35,7 +35,7 @@ export function filterStream(data) {
 
 		axios({
 			method: 'post',
-		  url: 'http://localhost:8080/api/stream/filter',
+		  url: 'http://macbook-air-de-smail.local:8080/api/stream/filter',
 			data: data,
 			withCredentials: true,
 		})

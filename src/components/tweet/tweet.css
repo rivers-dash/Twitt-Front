@@ -1,7 +1,17 @@
-.container {
-	color: black;
-	background-color: white;
-	border-radius: 20px;
+.tweet-box {
+	display: block;
+	width: 100%;
+	color: white;
+	background-color: rgba(#555555, 0.65);
+	box-shadow: 0 5px 5px rgba(0, 0, 0, .5);
+}
+
+.header {
+
+}
+
+.retweet-tag {
+		font-size: 10px;
 }
 
 .profile-picture {
@@ -12,15 +22,18 @@
 }
 
 .name {
+	color: white;
+	font-size: 16px;
 	text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
 }
 
 .description {
+	display: flex;
 	font-size: 10px;
 }
 
 .main {
-	color: #404040;
+	color: #a2a2a2;
 }
 
 .text {
@@ -28,11 +41,39 @@
 }
 
 .media {
-	display: flex;
-	justify-content: center;
+	object-fit: scale-down;
 	width: 100%;
+	height: auto;
+}
+
+.video {
+	width: 100%;
+	height: auto;
+	max-height: 500px;
+}
+
+.image {
+	object-fit: cover;
+	width: 100%;
+	height: auto;
 }
 
 .count {
 	font-size: 12px;
+}
+
+@media only screen and (max-width: 580px) {
+	.text {
+			font-size: 10px;
+	}
+
+  .description {
+    display: none;
+  }
+
+	.video {
+		width: 100%    !important;
+  	height: auto   !important;
+	}
+
 }
